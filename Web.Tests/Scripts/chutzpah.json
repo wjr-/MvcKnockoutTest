@@ -1,0 +1,13 @@
+﻿{
+    "Framework": "qunit",
+    "TestHarnessReferenceMode": "AMD",
+    "TestHarnessLocationMode": "SettingsFileAdjacent",
+    "References": [
+		{ "Path": "../Scripts/Lib/require/require.js" },
+		{ "Path": "../Scripts/require.config.js" }
+    ],
+	"AMDBasePath": "../Scripts",
+	"Tests": [
+		{ "Path": "ViewModelTests" }
+	]
+}

@@ -1,0 +1,91 @@
+﻿@{
+    Layout = Mvc.Shared.Views._Layout;
+    ViewBag.Title = "Backlog";
+}
+
+<div id="backlog-container">
+    <h2 data-bind="text: Name"></h2>
+
+    <table>
+        <thead>
+            <tr>
+				<th>#</th>
+                <th>Case ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+		<!-- ko foreach: BacklogItems -->
+            <tr>
+				<td data-bind="text: Ordinal"></td>
+                <td data-bind="text: BugTrackerCaseId"></td>
+                <td><span data-bind="text: Name" ></span></td>
+                <td><a data-bind="click: function (data, event) { $root.MoveUp(data, $index()) }" href="#" onclick="return null;">Up</a></td>
+                <td><a data-bind="click: function (data, event) { $root.MoveDown(data, $index()) }" href="#" onclick="return null;">Down</a></td>
+                <td><a data-bind="click: $root.Remove" href="#" onclick="return null;">Remove</a></td>
+            </tr>
+		<!-- /ko -->
+			<tr>
+				<td></td>
+				<td><input type="text" data-bind="value: NewItemId, hasFocus: UserIsEditingId"/></td>				
+				<td data-bind="text: NewItemName"></td>
+				<td colspan="2"><a data-bind="click: Add, visible: CanAdd" href="#" onclick="return null;">Add</a></td>
+			</tr>
+        </tbody>
+    </table>
+</div>
+
+@section JavaScripts 
+{
+    <script type="text/javascript">
+        require(['ko', 'jquery', 'backlogViewModel', 'domReady!'],
+            function (ko, $, backlogViewModel) {
+
+            	var urls = {
+            		get: '@Url.Action(Mvc.Backlog.ActionNames.GetItems, Mvc.Backlog.Name)',     
+            		save: '@Url.Action(Mvc.Backlog.ActionNames.Save, Mvc.Backlog.Name)',
+            		getCaseName: '@Url.Action(Mvc.BugTracker.ActionNames.GetCaseName, Mvc.BugTracker.Name)',            		
+            	};
+
+            	var getItems = function (successCallback) {
+            		$.ajax({
+            			url: urls.get,
+            			type: 'post',
+            			datatype: 'json',
+            			success: successCallback
+            		});
+            	};
+
+            	var saveItems = function (items) {
+            		$.ajax({
+            			url: urls.save,
+            			type: 'post',
+            			contentType: 'application/json',
+            			data: ko.toJSON(items),
+            			success: function () { }
+            		});
+            	};
+
+            	var getCaseName = function (id, successCallback) {
+            		$.ajax({
+            			url: urls.getCaseName,
+            			type: 'post',
+            			data: { id: id },
+            			success: successCallback,
+            			error: function () { }
+            		});
+            	};
+
+            	var viewModel = new backlogViewModel(getItems, saveItems, getCaseName);
+
+            	ko.applyBindings(
+					viewModel,
+					document.getElementById('backlog-container'));               
+            },
+
+            function (e) {
+                alert(e);
+            });
+    </script>
+
+}

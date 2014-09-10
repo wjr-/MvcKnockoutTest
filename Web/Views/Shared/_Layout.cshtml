@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Mvc + Knockout Test</title>
+    </head>
+    <body>
+        <div>
+            @RenderBody()
+        </div>
+        <script src="@Url.Content("/Scripts/Lib/require/require.js")"></script>
+        <script src="@Url.Content("/Scripts/require.config.js")"></script>
+        @RenderSection("JavaScripts")
+    </body>
+</html>

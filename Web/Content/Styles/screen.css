@@ -1,0 +1,48 @@
+﻿body {
+    margin: 0;
+}
+
+#backlog-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+}
+
+table.backlog {
+    border-spacing: 0px;
+    width: 100%;
+}
+
+    table.backlog th, td {
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    table.backlog tr:nth-child(even) {
+        background-color: #eaeaea;
+    }
+
+div.up, 
+div.down {
+    width: 20px;
+    height: 20px;
+}
+
+    div.up > .arrow, 
+    div.down > .arrow {
+	    width: 0; 
+	    height: 0; 
+	    border-left: 7px solid transparent;
+	    border-right: 7px solid transparent;
+        position: relative;
+        left: 3px;
+        top: 5px;
+    }
+
+    div.up > .arrow {
+	   	border-bottom: 10px solid black;
+    }
+
+    div.down > .arrow {
+	   	border-top: 10px solid black;
+    }

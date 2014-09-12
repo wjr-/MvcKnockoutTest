@@ -6,7 +6,7 @@
 <div id="backlog-container">
     <h2 data-bind="text: Name"></h2>
 
-    <table>
+    <table class="backlog">
         <thead>
             <tr>
 				<th>#</th>
@@ -20,8 +20,20 @@
 				<td data-bind="text: Ordinal"></td>
                 <td data-bind="text: BugTrackerCaseId"></td>
                 <td><span data-bind="text: Name" ></span></td>
-                <td><a data-bind="click: function (data, event) { $root.MoveUp(data, $index()) }" href="#" onclick="return null;">Up</a></td>
-                <td><a data-bind="click: function (data, event) { $root.MoveDown(data, $index()) }" href="#" onclick="return null;">Down</a></td>
+                <td>                    
+                    <a data-bind="click: function (data, event) { $root.MoveUp(data, $index()) }" href="#" onclick="return null;">
+                        <div class="up">
+                            <div class="arrow"></div>
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    <a data-bind="click: function (data, event) { $root.MoveDown(data, $index()) }" href="#" onclick="return null;">
+                        <div class="down">
+                            <div class="arrow"></div>
+                        </div>
+                    </a>
+                </td>
                 <td><a data-bind="click: $root.Remove" href="#" onclick="return null;">Remove</a></td>
             </tr>
 		<!-- /ko -->

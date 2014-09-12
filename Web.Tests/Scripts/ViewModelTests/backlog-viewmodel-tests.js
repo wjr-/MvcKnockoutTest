@@ -33,30 +33,37 @@
 		});
 
 		QUnit.test('MoveUp - Item order updated', function () {
-			backlog.MoveUp(item2, 1);
+			backlog.MoveUp(item2);
 			
 			equal(backlog.BacklogItems()[0].Name, 'Test 2', 'Item 2 should be first');
 			equal(backlog.BacklogItems()[1].Name, 'Test 1', 'Item 1 should be second');
 		});
 
 		QUnit.test('MoveUp - First item, nothing happens', function () {
-			backlog.MoveUp(item1, 0);
+			backlog.MoveUp(item1);
 
 			equal(backlog.BacklogItems()[0].Name, 'Test 1', 'Item 1 should be first');
 			equal(backlog.BacklogItems()[1].Name, 'Test 2', 'Item 2 should be second');
 		});
 
 		QUnit.test('MoveDown - Item order updated', function () {
-			backlog.MoveDown(item2, 1);
+			backlog.MoveDown(item2);
 
 			equal(backlog.BacklogItems()[1].Name, 'Test 3', 'Item 3 should be second');
 			equal(backlog.BacklogItems()[2].Name, 'Test 2', 'Item 2 should be last');
 		});
 
 		QUnit.test('MoveDown - Last item, nothing happens', function () {
-			backlog.MoveDown(item3, 2);
+			backlog.MoveDown(item3);
 
 			equal(backlog.BacklogItems()[1].Name, 'Test 2', 'Item 2 should be second');
 			equal(backlog.BacklogItems()[2].Name, 'Test 3', 'Item 3 should be last');
+		});
+
+		QUnit.test('Remove - Remaining items ordinals are updated', function () {
+		    backlog.Remove(item1);
+
+		    equal(backlog.BacklogItems()[0].Ordinal, 1, 'First item should have ordinal 1');
+		    equal(backlog.BacklogItems()[1].Ordinal, 2, 'Second item should have ordinal 2');
 		});
 	});

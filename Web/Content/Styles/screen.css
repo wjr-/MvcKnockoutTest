@@ -46,3 +46,31 @@ div.down {
     div.down > .arrow {
 	   	border-top: 10px solid black;
     }
+
+div.remove {
+   width: 20px;
+   height: 20px;
+   position: relative;
+   transform: rotate(45deg);
+}
+
+    div.remove:before, div.remove:after {
+      content: "";
+      position: absolute;
+      background: #d00;
+      border-radius: 3px;
+    }
+
+    div.remove:before {
+      left: 45%;
+      width: 16%;
+      margin-left: -8%;
+      height: 90%;
+    }
+
+    div.remove:after {
+      top: 45%;
+      height: 16%;
+      margin-top: -8%;
+      width: 90%;
+    }

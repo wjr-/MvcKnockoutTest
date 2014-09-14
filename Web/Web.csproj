@@ -168,6 +168,7 @@
     <Content Include="Scripts\Lib\knockout\ko.js" />
     <Content Include="Scripts\Lib\require\domReady.js" />
     <Content Include="Scripts\Lib\require\require.js" />
+    <Content Include="Scripts\Models\backlog-model.js" />
     <Content Include="Scripts\require.config.js" />
     <Content Include="Scripts\ViewModels\backlog-viewmodel.js" />
     <Content Include="Web.config">

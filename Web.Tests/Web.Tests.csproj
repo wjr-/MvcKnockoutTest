@@ -101,12 +101,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="Scripts\ModelTests\backlog-model-tests.js" />
     <Content Include="Scripts\ViewModelTests\backlog-viewmodel-tests.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\chutzpah.json" />
     <None Include="packages.config" />
-    <None Include="Scripts\RunJSTests.bat" />
+    <None Include="RunJSTests.bat" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Web\Web.csproj">

@@ -1,16 +1,16 @@
 ﻿define(['backlogViewModel'],
 	function (backlogViewModel) {
-		var self = this;
+		var test = this;
 
 		module('Backlog View Model - ');
 
 		QUnit.testStart(function (details) {
-			self.item1 = { "BugTrackerCaseId": 11, "Name": "Test 1", "Ordinal": 1 }
-			self.item2 = { "BugTrackerCaseId": 22, "Name": "Test 2", "Ordinal": 2 }
-			self.item3 = { "BugTrackerCaseId": 33, "Name": "Test 3", "Ordinal": 3 }
+			test.item1 = { "BugTrackerCaseId": 11, "Name": "Test 1", "Ordinal": 1 }
+			test.item2 = { "BugTrackerCaseId": 22, "Name": "Test 2", "Ordinal": 2 }
+			test.item3 = { "BugTrackerCaseId": 33, "Name": "Test 3", "Ordinal": 3 }
 
 			var fakeGetItems = function (successCallback) {
-				successCallback([self.item1, self.item3, self.item2]);
+				successCallback([test.item1, test.item3, test.item2]);
 			};
 
 			var fakeSaveItems = function (items) {
@@ -21,49 +21,15 @@
 				successCallback('New item');
 			};
 
-			self.backlog = new backlogViewModel(fakeGetItems, fakeSaveItems, fakeGetCaseName);
+			test.viewModel = new backlogViewModel(fakeGetItems, fakeSaveItems, fakeGetCaseName);
 		});
 
-		QUnit.test('Initialized backlog has correct values', function () {
-			equal(backlog.BacklogItems()[0].Name, 'Test 1', 'Item 1 should be first');
-			equal(backlog.BacklogItems()[2].Name, 'Test 3', 'Item 3 should be last');
-			equal(backlog.NewItemId(), '', 'New item id should be empty');
-			equal(backlog.NewItemName(), '', 'New item name should be empty');
-			equal(backlog.CanAdd(), false, 'Item adding should be disabled');
-		});
+		QUnit.test('Initialized backlog view has correct values', function () {
+		    equal(viewModel.Backlog.Items()[0].Name, 'Test 1', 'Item 1 should be first');
+		    equal(viewModel.Backlog.Items()[2].Name, 'Test 3', 'Item 3 should be last');
 
-		QUnit.test('MoveUp - Item order updated', function () {
-			backlog.MoveUp(item2);
-			
-			equal(backlog.BacklogItems()[0].Name, 'Test 2', 'Item 2 should be first');
-			equal(backlog.BacklogItems()[1].Name, 'Test 1', 'Item 1 should be second');
-		});
-
-		QUnit.test('MoveUp - First item, nothing happens', function () {
-			backlog.MoveUp(item1);
-
-			equal(backlog.BacklogItems()[0].Name, 'Test 1', 'Item 1 should be first');
-			equal(backlog.BacklogItems()[1].Name, 'Test 2', 'Item 2 should be second');
-		});
-
-		QUnit.test('MoveDown - Item order updated', function () {
-			backlog.MoveDown(item2);
-
-			equal(backlog.BacklogItems()[1].Name, 'Test 3', 'Item 3 should be second');
-			equal(backlog.BacklogItems()[2].Name, 'Test 2', 'Item 2 should be last');
-		});
-
-		QUnit.test('MoveDown - Last item, nothing happens', function () {
-			backlog.MoveDown(item3);
-
-			equal(backlog.BacklogItems()[1].Name, 'Test 2', 'Item 2 should be second');
-			equal(backlog.BacklogItems()[2].Name, 'Test 3', 'Item 3 should be last');
-		});
-
-		QUnit.test('Remove - Remaining items ordinals are updated', function () {
-		    backlog.Remove(item1);
-
-		    equal(backlog.BacklogItems()[0].Ordinal, 1, 'First item should have ordinal 1');
-		    equal(backlog.BacklogItems()[1].Ordinal, 2, 'Second item should have ordinal 2');
+		    equal(viewModel.NewItemId(), '', 'New item id should be empty');
+		    equal(viewModel.NewItemName(), '', 'New item name should be empty');
+		    equal(viewModel.CanAdd(), false, 'Item adding should be disabled');
 		});
 	});

@@ -1,1 +1,0 @@
-Chutzpah.3.2.3\chutzpah.console.exe ViewModelTests\backlog-viewmodel-tests.js /openInBrowser

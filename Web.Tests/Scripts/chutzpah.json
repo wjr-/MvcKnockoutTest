@@ -8,6 +8,7 @@
     ],
 	"AMDBasePath": "../Scripts",
 	"Tests": [
-		{ "Path": "ViewModelTests" }
+        { "Path": "ViewModelTests" },
+        { "Path": "ModelTests" }
 	]
 }

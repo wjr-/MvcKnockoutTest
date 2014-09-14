@@ -9,26 +9,26 @@
     <table class="backlog">
         <thead>
             <tr>
-				<th>#</th>
+                <th>#</th>
                 <th>Case ID</th>
                 <th>Name</th>
             </tr>
         </thead>
-        <tbody>
-		<!-- ko foreach: BacklogItems -->
+        <tbody>            
+            <!-- ko foreach: Backlog.Items -->
             <tr>
-				<td data-bind="text: $index()+1"></td>
+                <td data-bind="text: $index()+1"></td>
                 <td data-bind="text: BugTrackerCaseId"></td>
-                <td><span data-bind="text: Name" ></span></td>
-                <td>                    
-                    <a data-bind="click: function (data, event) { $root.MoveUp(data, $index()) }" href="#" onclick="return null;">
+                <td><span data-bind="text: Name"></span></td>
+                <td>
+                    <a data-bind="click: function (data, event) { $root.MoveUp(data) }" href="#" onclick="return null;">
                         <div class="up">
                             <div class="arrow"></div>
                         </div>
                     </a>
                 </td>
                 <td>
-                    <a data-bind="click: function (data, event) { $root.MoveDown(data, $index()) }" href="#" onclick="return null;">
+                    <a data-bind="click: function (data, event) { $root.MoveDown(data) }" href="#" onclick="return null;">
                         <div class="down">
                             <div class="arrow"></div>
                         </div>
@@ -40,13 +40,13 @@
                     </a>
                 </td>
             </tr>
-		<!-- /ko -->
-			<tr>
-				<td></td>
-				<td><input type="text" data-bind="value: NewItemId, hasFocus: UserIsEditingId"/></td>				
-				<td data-bind="text: NewItemName"></td>
-				<td colspan="2"><a data-bind="click: Add, visible: CanAdd" href="#" onclick="return null;">Add</a></td>
-			</tr>
+            <!-- /ko -->        
+            <tr>
+                <td></td>
+                <td><input type="text" data-bind="value: NewItemId, hasFocus: UserIsEditingId" /></td>
+                <td data-bind="text: NewItemName"></td>
+                <td colspan="3"><a data-bind="click: Add, visible: CanAdd" href="#" onclick="return null;">Add</a></td>
+            </tr>
         </tbody>
     </table>
 </div>

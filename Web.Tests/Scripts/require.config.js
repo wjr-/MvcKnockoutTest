@@ -7,6 +7,9 @@
 		jquery: 'Lib/jquery/jquery-2.1.1.min',
 		domReady: 'Lib/require/domReady',
 
+	    // Models
+		backlogModel: 'Models/backlog-model',
+
 		// View Models
 		backlogViewModel: 'ViewModels/backlog-viewmodel'
 	}

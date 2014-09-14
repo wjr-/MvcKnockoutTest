@@ -1,11 +1,11 @@
-﻿define(['knockout', 'jquery'],
+﻿define(['knockout', 'jquery', 'backlogModel'],
 
-function (ko, $) {
+function (ko, $, backlogModel) {
     return function backlogViewModel(getItems, saveItems, getCaseName) {
         var self = this;
 
         self.Name = 'Test Backlog';
-        self.BacklogItems = ko.observableArray([]);
+        self.Backlog = new backlogModel();
 
         self.UserIsEditingId = ko.observable(false);
         self.NewItemId = ko.observable('');
@@ -13,23 +13,13 @@ function (ko, $) {
         self.CanAdd = ko.observable(false);
 
         self.MoveUp = function (item) {
-        	if (item.Ordinal == 1) {
-        		return;
-        	}
-        	switchItems(item, self.BacklogItems()[item.Ordinal - 2]);
+            self.Backlog.MoveUp(item);
+            saveItems(self.Backlog.Items());
         };
 
         self.MoveDown = function (item) {
-        	if (item.Ordinal == (self.BacklogItems().length)) {
-        		return;
-        	}
-        	switchItems(item, self.BacklogItems()[item.Ordinal]);
-        };
-
-        self.Sort = function () {
-        	self.BacklogItems.sort(function (left, right) {
-        		return (left.Ordinal < right.Ordinal) ? -1 : 1;
-        	});
+            self.Backlog.MoveDown(item);
+            saveItems(self.Backlog.Items());
         };
 
         self.Add = function () {
@@ -38,34 +28,23 @@ function (ko, $) {
         	}
         	self.CanAdd(false);
 
-        	var item = {
-        		Name: self.NewItemName(),
-        		BugTrackerCaseId: self.NewItemId(),
-        		Ordinal: self.BacklogItems().length + 1
-        	}
-
-        	self.BacklogItems.push(item);
-        	self.Sort();
+        	self.Backlog.Add(self.NewItemId(), self.NewItemName());
 
         	self.NewItemId('');
         	self.NewItemName('');
 
-        	saveItems(self.BacklogItems());
+        	saveItems(self.Backlog.Items());
         };
 
         self.Remove = function (item) {
-        	self.BacklogItems.remove(item);
-        	$.each(self.BacklogItems(), function (index, item) {
-        		item.Ordinal = index + 1;
-        	});
+        	self.Backlog.Remove(item);
 
-        	saveItems(self.BacklogItems());
+        	saveItems(self.Backlog.Items());
         };
 
-		// Subscriptions
         self.UserIsEditingId.subscribe(function (editing) {
         	if (!editing) {
-        		if (!newItemAlreadyInBacklog()) {
+        		if (!self.Backlog.Contains(self.NewItemId())) {
         			getItemName();
         		}
         		else {
@@ -76,27 +55,6 @@ function (ko, $) {
         		self.CanAdd(false);
         	}
         });
-
-        // "Private" functions
-        var switchItems = function (item1, item2) {
-        	var temp = item1.Ordinal;
-        	item1.Ordinal = item2.Ordinal
-        	item2.Ordinal = temp;
-
-        	self.Sort();
-
-        	saveItems(self.BacklogItems());
-        };       
-
-        var newItemAlreadyInBacklog = function () {
-        	var found = false;
-        	$.each(self.BacklogItems(), function (index, item) {
-        		if (self.NewItemId() == item.BugTrackerCaseId) {
-        			found = true;
-        		}
-        	});
-        	return found;
-        };
 
         var getItemName = function () {
         	if (self.NewItemId() == '') {
@@ -117,12 +75,12 @@ function (ko, $) {
         	}
 
         	getCaseName(self.NewItemId(), successCallback);
-        };	
+        };
 
-		// Init
+        // Init
         getItems(function (data) {
-        	self.BacklogItems(data);
-        	self.Sort();
+            self.Backlog.Items(data);
+            self.Backlog.Sort();
         });
 	};
 });

@@ -1,0 +1,1 @@
+Chutzpah.3.2.3\chutzpah.console.exe Scripts /openInBrowser
